@@ -1,0 +1,95 @@
+<mvc:View controllerName="demo.app.excelZUIExcel.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified" displayBlock="true" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<!--<customHeader>-->
+				<!--	<Bar>-->
+				<!--		<contentMiddle>-->
+				<!--			<Label text="Read Data From Excel"/>-->
+				<!--		</contentMiddle>-->
+				<!--		<contentRight>-->
+				<!--			<u:FileUploader id="FileUploaderId" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true" fileType="XLSX,xlsx"-->
+				<!--				icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onUpload"/>-->
+				<!--		</contentRight>-->
+				<!--	</Bar>-->
+				<!--</customHeader>-->
+				<content>
+				
+				<Table
+				id="idTable"
+				width="auto"
+				class="sapUiResponsiveMargin"
+				noDataText="{worklistView>/tableNoDataText}"
+				items="{local>/data}">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="idTopTitle" text="Upload Data"/>
+						<ToolbarSpacer />
+						<SearchField width="30%" search="onSearch" placeholder="enter location"></SearchField>
+						<Button icon="sap-icon://add" press="onAdd"></Button>
+						<Button icon="sap-icon://excel-attachment" press="onAddExcelData"></Button>
+					</Toolbar>
+				</headerToolbar>
+
+				<columns>
+					<Column id="idTopName">
+						<Text text="Location"/>
+					</Column>
+					<Column id="idBrand">
+						<Text text="Cost Collector"/>
+					</Column>
+					<Column id="idPrice" >
+						<Text text="Materials"/>
+					</Column>
+					<Column id="idEndDate" >
+						<Text text="End Date"/>
+					</Column>
+					<Column id="idQuantity" >
+						<Text text="Quantity"/>
+					</Column>
+					<Column id="idCost" >
+						<Text text="Cost"/>
+					</Column>
+					<Column id="idLaborCost" >
+						<Text text="Labor Cost"/>
+					</Column>
+					<Column id="idEmissionCost" >
+						<Text text="Emission Cost"/>
+					</Column>
+					<Column id="idAvgCost" >
+						<Text text="Average Cost"/>
+					</Column>
+				</columns>
+
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press="onPress">
+						<cells>
+							<Text text="{local>Location}"></Text>
+							<Text text="{local>Collector}"></Text>
+							<Text text="{local>Material}"></Text>
+							<Text text="{local>EndDate}"></Text>
+							<Input value="{local>Quantity}"></Input>
+							<Input value="{local>Cost}" liveChange="onCellChange"></Input>
+							<Input value="{local>LaborCost}" liveChange="onCellChange"></Input>
+							<Input value="{local>EmissionCost}" liveChange="onCellChange"></Input>
+							<Text text="{local>AvgCost}"></Text>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			
+				</content>
+				
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer />
+						<Button text="Save" press="onSave"></Button>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
