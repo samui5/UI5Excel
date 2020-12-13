@@ -80,13 +80,19 @@ CLASS ZCL_ZCOLLECTOR_COST_DPC_EXT IMPLEMENTATION.
          data             =   itab               " Data to serialize
      ).
 
-     LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs>).
+     DELETE itab WHERE Guid = '' and Units = 'D'.
+
+     LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs>) WHERE guid = ''.
 
        <fs>-guid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( ).
 
      ENDLOOP.
 
-     INSERT zcollector_cost  from TABLE itab.
+     MODIFY zcollector_cost  from TABLE itab.
+
+     LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs2>) WHERE Units = 'D'.
+       delete FROM zcollector_cost WHERE Guid = <fs2>-guid.
+     ENDLOOP.
 
   endmethod.
 
