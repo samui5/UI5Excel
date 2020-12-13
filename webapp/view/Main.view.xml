@@ -38,7 +38,8 @@
 							<FlexItemData shrinkFactor="0"/>
 						</smartFilterBar:layoutData>
 					</smartFilterBar:SmartFilterBar>
-					<Table id="idTable" width="auto" class="sapUiResponsiveMargin" noDataText="{worklistView>/tableNoDataText}" items="{local>/data}">
+					<Table id="idTable" width="auto" class="sapUiResponsiveMargin" noDataText="{worklistView>/tableNoDataText}" 
+						items="{path : 'local>/data', filters: [{path: 'Units', operator: 'NE', value1: 'D'}]}">
 						<headerToolbar>
 							<Toolbar>
 								<Title id="idTopTitle" text="Upload Data"/>
@@ -87,15 +88,15 @@
 									<Text text="{local>Location}"></Text>
 									<Text text="{local>Collector}"></Text>
 									<Text text="{local>Material}"></Text>
-									<Text text="{local>EndDate}"></Text>
-									<Input value="{local>Quantity}"></Input>
-									<Input value="{local>Cost}" liveChange="onCellChange"></Input>
-									<Input value="{local>LaborCost}" liveChange="onCellChange"></Input>
-									<Input value="{local>EmissionCost}" liveChange="onCellChange"></Input>
-									<Text text="{local>AvgCost}"></Text>
+									<Text text="{path : 'local>Enddate', formatter: '.formatter.getSAPFormattedDate'}"></Text>
+									<Text text="{local>Quantity}"></Text>
+									<Text text="{local>Cost}"></Text>
+									<Text text="{local>Laborcost}"></Text>
+									<Text text="{local>Emissioncost}"></Text>
+									<Text text="{local>Avgcost}"></Text>
 									<HBox>
 										<Button icon="sap-icon://edit" press="onEdit"></Button>
-										<Button icon="sap-icon://delete" press="onDelete"></Button>
+										<Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="onDelete"></Button>
 									</HBox>
 								</cells>
 							</ColumnListItem>

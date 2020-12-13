@@ -6,28 +6,32 @@ sap.ui.define([
 	"sap/ui/unified/FileUploader",
 	"sap/m/MessageToast",
 	"sap/m/MessageBox",
-	"sap/ui/model/Filter"
-], function(Controller, JSONModel, History, Dialog, FileUploader, MessageToast, MessageBox, Filter) {
+	"sap/ui/model/Filter",
+	"demo/app/excelZUIExcel/model/formatter"
+], function(Controller, JSONModel, History, Dialog, FileUploader, MessageToast, MessageBox, Filter, formatter) {
 	"use strict";
 
 	return Controller.extend("demo.app.excelZUIExcel.controller.Main", {
 		onInit: function(){
 				var oJson = new JSONModel();
 				oJson.setData({data: [],  newEntry: {
+					Guid : "",
 					Location:"",
 					Collector:"",
 					Material:"",
-					EndDate: this.getFormattedDate(0),
+					Enddate: new Date(),
 					Quantity:0,
 					Cost:0,
-					LaborCost:0,
-					EmissionCost:0,
-					AvgCost:0
+					Laborcost:0,
+					Emissioncost:0,
+					Avgcost:0,
+					Units: ""
 				}})		;
 				this.getView().setModel(oJson,"local");
 				this.localModel = oJson;
 				this.oDataModel = this.getOwnerComponent().getModel();
 		},
+		formatter: formatter,
 		updateRecords : [],
 		newRecords: [],
 		deleteRecords: [],
@@ -36,9 +40,9 @@ sap.ui.define([
 			if(sValues.Quantity <= 0 || !sValues.Quantity){
 				return;
 			}
-			sValues.AvgCost = ( parseFloat(sValues.Cost) + parseFloat(sValues.LaborCost) + parseFloat(sValues.EmissionCost) ) / sValues.Quantity;
-			var newVal = parseFloat(sValues.AvgCost).toFixed(2);
-			this.localModel.setProperty("/newEntry/AvgCost", newVal);
+			sValues.Avgcost = ( parseFloat(sValues.Cost) + parseFloat(sValues.Laborcost) + parseFloat(sValues.Emissioncost) ) / sValues.Quantity;
+			var newVal = parseFloat(sValues.Avgcost).toFixed(2);
+			this.localModel.setProperty("/newEntry/Avgcost", newVal);
 		},
 		onCellChange: function(oEvent){
 			var currentRow = oEvent.getSource().getParent();
@@ -62,12 +66,6 @@ sap.ui.define([
 			}, "Confirmation");	
 		},
 		inpField: "",
-		onEdit: function(oEvent){
-			
-		},
-		onDelete: function(oEvent){
-			
-		},
 		onFilterSearch: function(){
 			var that = this;
 			
@@ -88,6 +86,7 @@ sap.ui.define([
 			}else{
 				this.oDataModel.read("/MatCollAllSet",{
 					success: function(data){
+						console.log(data.results);
 						that.localModel.setProperty("/data",data.results);
 					}
 				});
@@ -169,10 +168,34 @@ sap.ui.define([
 				return;
 			}
 			var clonedData = JSON.parse(JSON.stringify(sValues));
-			var aData = this.localModel.getProperty("/data");
-			aData.splice(0, 0, clonedData);
-			this.localModel.setProperty("/data", aData);
+			clonedData.Enddate =  new Date(clonedData.Enddate);
+			if(this.editPath){
+				clonedData.Units = "U";
+				this.localModel.setProperty(this.editPath, clonedData);
+				this.editPath = "";
+			}else{
+				var aData = this.localModel.getProperty("/data");
+				aData.splice(0, 0, clonedData);
+				this.localModel.setProperty("/data", aData);
+			}
 			this._oDialogSecure.close();
+		},
+		onEdit: function(oEvent){
+			this.editPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
+			this.localModel.setProperty("/newEntry", this.localModel.getProperty(this.editPath));
+			if (!this._oDialogSecure) {
+				this._oDialogSecure = sap.ui.xmlfragment("Secure_Dialog", "demo.app.excelZUIExcel.fragments.createEntry", this);
+				this.getView().addDependent(this._oDialogSecure);
+			}
+			//jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialogSecure);
+			this._oDialogSecure.open();
+		},
+		onDelete: function(oEvent){
+			this.editPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
+			var record = this.localModel.getProperty(this.editPath);
+			record.Units = "D";
+			this.localModel.setProperty(this.editPath, record);
+			this.getView().byId("idTable").getBinding("items").filter([new sap.ui.model.Filter("Units", "NE", "D")]);
 		},
 		onPressHandleSecureCancelPopup: function(){
 			this._oDialogSecure.close();
@@ -228,14 +251,29 @@ sap.ui.define([
 				this._oDialogSecure = sap.ui.xmlfragment("Secure_Dialog", "demo.app.excelZUIExcel.fragments.createEntry", this);
 				this.getView().addDependent(this._oDialogSecure);
 			}
+			var newEntry = {
+					Guid : "",
+					Location:"",
+					Collector:"",
+					Material:"",
+					Enddate: new Date(),
+					Quantity:0,
+					Cost:0,
+					Laborcost:0,
+					Emissioncost:0,
+					Avgcost:0,
+					Units: ""
+				};
+			this.localModel.setProperty("/newEntry", newEntry);
 			//jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialogSecure);
 			this._oDialogSecure.open();
 		},
 		onSave: function(){
 			var xData = this.localModel.getProperty("/data");
 			var aData = JSON.parse(JSON.stringify(xData));
+			debugger;
 			for(var i = 0;i<aData.length;i++){
-				aData[i].EndDate = this.formatDate(aData[i].EndDate);
+				aData[i].Enddate = this.formatDate(aData[i].Enddate);
 			}
 			//var base64Str = Buffer.from(JSON.stringify(aData)).toString("base64");
 			var base64Str = btoa(decodeURIComponent(JSON.stringify(aData)));
@@ -271,7 +309,7 @@ sap.ui.define([
 							Location:"",
 							Collector:"",
 							Material:"",
-							EndDate: that.getFormattedDate(0),
+							EndDate: new Date(),
 							Quantity:0,
 							Cost:0,
 							LaborCost:0,

@@ -1,6 +1,6 @@
-class ZCL_ZCOLLECTOR_COST_01_DPC_EXT definition
+class ZCL_ZCOLLECTOR_COST_DPC_EXT definition
   public
-  inheriting from ZCL_ZCOLLECTOR_COST_01_DPC
+  inheriting from ZCL_ZCOLLECTOR_COST_DPC
   create public .
 
 public section.
@@ -31,11 +31,11 @@ ENDCLASS.
 
 
 
-CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
+CLASS ZCL_ZCOLLECTOR_COST_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->COLLECTORSET_CREATE_ENTITY
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->COLLECTORSET_CREATE_ENTITY
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -44,7 +44,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY_C(optional)
 * | [--->] IT_NAVIGATION_PATH             TYPE        /IWBEP/T_MGW_NAVIGATION_PATH
 * | [--->] IO_DATA_PROVIDER               TYPE REF TO /IWBEP/IF_MGW_ENTRY_PROVIDER(optional)
-* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TS_COLLECTOR
+* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TS_COLLECTOR
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
 * +--------------------------------------------------------------------------------------</SIGNATURE>
@@ -92,7 +92,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->COLLECTORSET_GET_ENTITY
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->COLLECTORSET_GET_ENTITY
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -101,7 +101,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IO_REQUEST_OBJECT              TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY(optional)
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY(optional)
 * | [--->] IT_NAVIGATION_PATH             TYPE        /IWBEP/T_MGW_NAVIGATION_PATH
-* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TS_COLLECTOR
+* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TS_COLLECTOR
 * | [<---] ES_RESPONSE_CONTEXT            TYPE        /IWBEP/IF_MGW_APPL_SRV_RUNTIME=>TY_S_MGW_RESPONSE_ENTITY_CNTXT
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
@@ -131,7 +131,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->COLLECTORSET_GET_ENTITYSET
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->COLLECTORSET_GET_ENTITYSET
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -144,7 +144,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IV_FILTER_STRING               TYPE        STRING
 * | [--->] IV_SEARCH_STRING               TYPE        STRING
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITYSET(optional)
-* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TT_COLLECTOR
+* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TT_COLLECTOR
 * | [<---] ES_RESPONSE_CONTEXT            TYPE        /IWBEP/IF_MGW_APPL_SRV_RUNTIME=>TY_S_MGW_RESPONSE_CONTEXT
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
@@ -174,7 +174,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->MATCOLLALLSET_CREATE_ENTITY
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->MATCOLLALLSET_CREATE_ENTITY
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -183,7 +183,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY_C(optional)
 * | [--->] IT_NAVIGATION_PATH             TYPE        /IWBEP/T_MGW_NAVIGATION_PATH
 * | [--->] IO_DATA_PROVIDER               TYPE REF TO /IWBEP/IF_MGW_ENTRY_PROVIDER(optional)
-* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TS_MATCOLLALL
+* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TS_MATCOLLALL
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
 * +--------------------------------------------------------------------------------------</SIGNATURE>
@@ -208,7 +208,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->MATCOLLALLSET_DELETE_ENTITY
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->MATCOLLALLSET_DELETE_ENTITY
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -237,7 +237,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->MATCOLLALLSET_GET_ENTITY
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->MATCOLLALLSET_GET_ENTITY
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -246,7 +246,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IO_REQUEST_OBJECT              TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY(optional)
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY(optional)
 * | [--->] IT_NAVIGATION_PATH             TYPE        /IWBEP/T_MGW_NAVIGATION_PATH
-* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TS_MATCOLLALL
+* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TS_MATCOLLALL
 * | [<---] ES_RESPONSE_CONTEXT            TYPE        /IWBEP/IF_MGW_APPL_SRV_RUNTIME=>TY_S_MGW_RESPONSE_ENTITY_CNTXT
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
@@ -264,7 +264,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->MATCOLLALLSET_GET_ENTITYSET
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->MATCOLLALLSET_GET_ENTITYSET
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -277,7 +277,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IV_FILTER_STRING               TYPE        STRING
 * | [--->] IV_SEARCH_STRING               TYPE        STRING
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITYSET(optional)
-* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TT_MATCOLLALL
+* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TT_MATCOLLALL
 * | [<---] ES_RESPONSE_CONTEXT            TYPE        /IWBEP/IF_MGW_APPL_SRV_RUNTIME=>TY_S_MGW_RESPONSE_CONTEXT
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
@@ -306,7 +306,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->MATCOLLALLSET_UPDATE_ENTITY
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->MATCOLLALLSET_UPDATE_ENTITY
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -315,14 +315,14 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITY_U(optional)
 * | [--->] IT_NAVIGATION_PATH             TYPE        /IWBEP/T_MGW_NAVIGATION_PATH
 * | [--->] IO_DATA_PROVIDER               TYPE REF TO /IWBEP/IF_MGW_ENTRY_PROVIDER(optional)
-* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TS_MATCOLLALL
+* | [<---] ER_ENTITY                      TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TS_MATCOLLALL
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
 * +--------------------------------------------------------------------------------------</SIGNATURE>
   method MATCOLLALLSET_UPDATE_ENTITY.
 
     data: ls_data type ZCOLLECTOR_COST,
-          ls_entity TYPE zcl_zcollector_cost_01_mpc=>ts_matcollall.
+          ls_entity TYPE ZCL_ZCOLLECTOR_COST_mpc=>ts_matcollall.
 
     IO_DATA_PROVIDER->read_entry_data(
       importing
@@ -337,7 +337,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->MATCOLLECTORSET_GET_ENTITYSET
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->MATCOLLECTORSET_GET_ENTITYSET
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -350,7 +350,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IV_FILTER_STRING               TYPE        STRING
 * | [--->] IV_SEARCH_STRING               TYPE        STRING
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITYSET(optional)
-* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TT_MATCOLLECTOR
+* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TT_MATCOLLECTOR
 * | [<---] ES_RESPONSE_CONTEXT            TYPE        /IWBEP/IF_MGW_APPL_SRV_RUNTIME=>TY_S_MGW_RESPONSE_CONTEXT
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
@@ -389,7 +389,7 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 
 
 * <SIGNATURE>---------------------------------------------------------------------------------------+
-* | Instance Protected Method ZCL_ZCOLLECTOR_COST_01_DPC_EXT->VALUEHELPSET_GET_ENTITYSET
+* | Instance Protected Method ZCL_ZCOLLECTOR_COST_DPC_EXT->VALUEHELPSET_GET_ENTITYSET
 * +-------------------------------------------------------------------------------------------------+
 * | [--->] IV_ENTITY_NAME                 TYPE        STRING
 * | [--->] IV_ENTITY_SET_NAME             TYPE        STRING
@@ -402,14 +402,14 @@ CLASS ZCL_ZCOLLECTOR_COST_01_DPC_EXT IMPLEMENTATION.
 * | [--->] IV_FILTER_STRING               TYPE        STRING
 * | [--->] IV_SEARCH_STRING               TYPE        STRING
 * | [--->] IO_TECH_REQUEST_CONTEXT        TYPE REF TO /IWBEP/IF_MGW_REQ_ENTITYSET(optional)
-* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_01_MPC=>TT_VALUEHELP
+* | [<---] ET_ENTITYSET                   TYPE        ZCL_ZCOLLECTOR_COST_MPC=>TT_VALUEHELP
 * | [<---] ES_RESPONSE_CONTEXT            TYPE        /IWBEP/IF_MGW_APPL_SRV_RUNTIME=>TY_S_MGW_RESPONSE_CONTEXT
 * | [!CX!] /IWBEP/CX_MGW_BUSI_EXCEPTION
 * | [!CX!] /IWBEP/CX_MGW_TECH_EXCEPTION
 * +--------------------------------------------------------------------------------------</SIGNATURE>
   method VALUEHELPSET_GET_ENTITYSET.
 
-    data ls_entity TYPE ZCL_ZCOLLECTOR_COST_01_MPC=>TS_VALUEHELP.
+    data ls_entity TYPE ZCL_ZCOLLECTOR_COST_MPC=>TS_VALUEHELP.
 
     READ TABLE it_filter_select_options INTO DATA(ls_filter) INDEX 1.
 
