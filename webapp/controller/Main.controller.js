@@ -300,7 +300,8 @@ sap.ui.define([
 
 					});
 					for (var i=0; i<excelData.length; i++) {
-						excelData[i].AvgCost = parseFloat(( parseInt(excelData[i].Cost)   + parseInt(excelData[i].LaborCost)  + parseInt(excelData[i].EmissionCost) ) / parseInt(excelData[i].Quantity)).toFixed(2);                         
+						excelData[i].Avgcost = parseFloat(( parseInt(excelData[i].Cost)   + parseInt(excelData[i].Laborcost)  + parseInt(excelData[i].Emissioncost) ) / parseInt(excelData[i].Quantity)).toFixed(2);                         
+						excelData[i].Units = "N";
 					}
 					// Setting the data to the local model 
 					that.localModel.setData({

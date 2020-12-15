@@ -39,10 +39,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_hcb",
-			"sap_belize"
-		]
+		"supportedThemes": ["sap_hcb", "sap_belize"]
 	},
 	"sap.ui5": {
 		"rootView": {
@@ -84,11 +81,14 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}],
+			"js": [{
+				"uri": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/jszip.js"
+			}, {
+				"uri": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/xlsx.js"
+			}]
 		}
 	},
 	"sap.platform.abap": {

@@ -45,7 +45,7 @@
     "targetFolder": "dist",
     "excludedFolders": [],
     "excludedFiles": [],
-    "lastBuildDateTime": "Tue, 24 Nov 2020 14:26:47 GMT"
+    "lastBuildDateTime": "Mon, 14 Dec 2020 05:16:30 GMT"
   },
   "mockpreview": {
     "mockUri": "/sap/opu/odata/sap/ZCOLLECTOR_COST_SRV",
@@ -55,7 +55,7 @@
     "mockRequestsFilePath": ""
   },
   "deploy": {
-    "destination": "S4D",
-    "name": "ZMAT_COLL"
+    "destination": "CFN",
+    "name": "ZEXCELUI"
   }
 }
