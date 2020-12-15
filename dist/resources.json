@@ -4,6 +4,12 @@
             "name": "css/style.css"
         },
         {
+            "name": "util/jszip.js"
+        },
+        {
+            "name": "util/xlsx.js"
+        },
+        {
             "name": "manifest.json"
         },
         {

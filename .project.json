@@ -45,7 +45,7 @@
     "targetFolder": "dist",
     "excludedFolders": [],
     "excludedFiles": [],
-    "lastBuildDateTime": "Tue, 15 Dec 2020 16:01:47 GMT"
+    "lastBuildDateTime": "Tue, 15 Dec 2020 16:49:36 GMT"
   },
   "mockpreview": {
     "mockUri": "/sap/opu/odata/sap/ZCOLLECTOR_COST_SRV",

@@ -91,10 +91,10 @@
             ],
             "js": [
                 {
-                    "uri": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/jszip.js"
+                    "uri": "util/jszip.js"
                 },
                 {
-                    "uri": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/xlsx.js"
+                    "uri": "util/xlsx.js"
                 }
             ]
         }
