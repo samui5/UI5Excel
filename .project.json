@@ -40,12 +40,12 @@
     "blockPushLevel": "Error"
   },
   "build": {
-    "buildRequired": true,
+    "buildRequired": false,
     "sourceFolder": "webapp",
     "targetFolder": "dist",
     "excludedFolders": [],
     "excludedFiles": [],
-    "lastBuildDateTime": "Mon, 14 Dec 2020 05:16:30 GMT"
+    "lastBuildDateTime": "Tue, 15 Dec 2020 16:01:47 GMT"
   },
   "mockpreview": {
     "mockUri": "/sap/opu/odata/sap/ZCOLLECTOR_COST_SRV",

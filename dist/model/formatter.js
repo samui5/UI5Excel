@@ -48,8 +48,10 @@ sap.ui.define([],
 				return  mm + '/' + dd + '/' + yyyy;
 			},
 			getSAPFormattedDate: function(newDate) {
+				
 				if(newDate){
-					var dateObj = newDate;
+					//var dateObj = newDate;
+					var dateObj = new Date(newDate);
 					dateObj.setDate(dateObj.getDate());
 					var dd = dateObj.getDate();
 					dateObj.setMonth(dateObj.getMonth());

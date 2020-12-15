@@ -88,6 +88,14 @@
                 {
                     "uri": "css/style.css"
                 }
+            ],
+            "js": [
+                {
+                    "uri": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/jszip.js"
+                },
+                {
+                    "uri": "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/xlsx.js"
+                }
             ]
         }
     },
