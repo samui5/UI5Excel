@@ -5,41 +5,143 @@ sap.ui.define([
 	"sap/m/Dialog",
 	"sap/ui/unified/FileUploader",
 	"sap/m/MessageToast",
-	"sap/m/MessageBox"
-], function(Controller, JSONModel, History, Dialog, FileUploader, MessageToast, MessageBox) {
+	"sap/m/MessageBox",
+	"sap/ui/model/Filter",
+	"demo/app/excelZUIExcel/model/formatter"
+], function(Controller, JSONModel, History, Dialog, FileUploader, MessageToast, MessageBox, Filter, formatter) {
 	"use strict";
 
 	return Controller.extend("demo.app.excelZUIExcel.controller.Main", {
 		onInit: function(){
 				var oJson = new JSONModel();
 				oJson.setData({data: [],  newEntry: {
+					Guid : "",
 					Location:"",
 					Collector:"",
 					Material:"",
-					EndDate: this.getFormattedDate(0),
+					Enddate: new Date(),
 					Quantity:0,
 					Cost:0,
-					LaborCost:0,
-					EmissionCost:0,
-					AvgCost:0
+					Laborcost:0,
+					Emissioncost:0,
+					Avgcost:0,
+					Units: ""
 				}})		;
 				this.getView().setModel(oJson,"local");
 				this.localModel = oJson;
+				this.oDataModel = this.getOwnerComponent().getModel();
 		},
+		formatter: formatter,
+		updateRecords : [],
+		newRecords: [],
+		deleteRecords: [],
 		onLiveChange: function(){
 			var sValues = 	this.localModel.getProperty("/newEntry");
-			sValues.AvgCost = ( parseFloat(sValues.Cost) + parseFloat(sValues.LaborCost) + parseFloat(sValues.EmissionCost) ) / 3;
-			var newVal = parseFloat(sValues.AvgCost).toFixed(2);
-			this.localModel.setProperty("/newEntry/AvgCost", newVal);
+			if(sValues.Quantity <= 0 || !sValues.Quantity){
+				return;
+			}
+			sValues.Avgcost = ( parseFloat(sValues.Cost) + parseFloat(sValues.Laborcost) + parseFloat(sValues.Emissioncost) ) / sValues.Quantity;
+			var newVal = parseFloat(sValues.Avgcost).toFixed(2);
+			this.localModel.setProperty("/newEntry/Avgcost", newVal);
 		},
 		onCellChange: function(oEvent){
 			var currentRow = oEvent.getSource().getParent();
+			var quantity = currentRow.getCells()[4].getValue();
 			var cost = currentRow.getCells()[5].getValue();
 			var labor = currentRow.getCells()[6].getValue();
 			var emission = currentRow.getCells()[7].getValue();
 			var calcVal = parseFloat(cost) + parseFloat(labor) + parseFloat(emission);
-			var final = parseFloat(calcVal / 3).toFixed(2);
+			if(quantity <= 0 || !quantity){
+				return;
+			}
+			var final = parseFloat(calcVal / quantity).toFixed(2);
 			currentRow.getCells()[8].setText(final);
+		},
+		onCancel: function(){
+			var that = this;
+			MessageBox.confirm("All the changes will be discarded?", function(conf) {
+				if (conf == 'OK') {
+					window.location.reload();
+				}
+			}, "Confirmation");	
+		},
+		inpField: "",
+		onFilterSearch: function(){
+			var that = this;
+			
+			if(this.getView().byId("Material").getValue() !== ""){
+				this.oDataModel.read("/MatCollAllSet",{
+					filters: [new Filter("Material", "EQ", this.getView().byId("Material").getValue())],
+					success: function(data){
+						that.localModel.setProperty("/data",data.results);
+					}
+				});
+			}else if (this.getView().byId("Location").getValue() !== ""){
+				this.oDataModel.read("/MatCollAllSet",{
+					filters: [new Filter("Location", "EQ", this.getView().byId("Location").getValue())],
+					success: function(data){
+						that.localModel.setProperty("/data",data.results);
+					}
+				});
+			}else{
+				this.oDataModel.read("/MatCollAllSet",{
+					success: function(data){
+						console.log(data.results);
+						that.localModel.setProperty("/data",data.results);
+					}
+				});
+			}
+			
+			
+		},
+		onSelectValue: function(oEvent){
+				var selectedItem = oEvent.getParameter("selectedItem");
+				var sTitle = selectedItem.getLabel();
+				sap.ui.getCore().byId(this.inpField).setValue(sTitle);
+				var that = this;
+				if(this.inpField.indexOf("Material") !== -1){
+					this.getView().byId("Location").setValue("");
+				}else{
+					this.getView().byId("Material").setValue("");
+				}
+				
+				
+		},
+		cityPopup: null,
+		onValueHelp: function(oEvent){
+			this.inpField = oEvent.getSource().getId();
+			//lo_alv->set_table_for_first_display
+			//MessageBox.confirm("this functionality is under construction");
+			if(this.inpField.indexOf("Material") !== -1){
+				this.cityPopup = sap.ui.xmlfragment("demo.app.excelZUIExcel.fragments.popup", this);	
+				this.cityPopup.bindAggregation("items",{
+					path: "/ValueHelpSet",
+					filters: [new Filter("Key", "EQ","M-")],
+					template: new sap.m.DisplayListItem({
+						label: "{Key}",
+						value: "{Text}"
+					})
+				});
+				this.cityPopup.setTitle("Materials");
+				this.cityPopup.setMultiSelect(false);
+				this.getView().addDependent(this.cityPopup);
+				this.cityPopup.open();
+			}else{
+				this.cityPopup = sap.ui.xmlfragment("demo.app.excelZUIExcel.fragments.popup", this);	
+				this.cityPopup.bindAggregation("items",{
+					path: "/ValueHelpSet",
+					filters: [new Filter("Key", "EQ","L-")],
+					template: new sap.m.DisplayListItem({
+						label: "{Key}",
+						value: "{Text}"
+					})
+				});
+				this.cityPopup.setTitle("Locations");
+				this.cityPopup.setMultiSelect(false);
+				this.getView().addDependent(this.cityPopup);
+				this.cityPopup.open();
+			}
+			
 		},
 		getFormattedDate: function(monthInc) {
 			var dateObj = new Date();
@@ -65,14 +167,40 @@ sap.ui.define([
 				MessageBox.error("Please enter valid value");
 				return;
 			}
-			var aData = this.localModel.getProperty("/data");
-			aData.splice(0, 0, sValues);
-			this.localModel.setProperty("/data", aData);
+			var clonedData = JSON.parse(JSON.stringify(sValues));
+			clonedData.Enddate =  new Date(clonedData.Enddate);
+			if(this.editPath){
+				clonedData.Units = "U";
+				this.localModel.setProperty(this.editPath, clonedData);
+				this.editPath = "";
+			}else{
+				var aData = this.localModel.getProperty("/data");
+				aData.splice(0, 0, clonedData);
+				this.localModel.setProperty("/data", aData);
+			}
 			this._oDialogSecure.close();
+		},
+		onEdit: function(oEvent){
+			this.editPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
+			this.localModel.setProperty("/newEntry", this.localModel.getProperty(this.editPath));
+			if (!this._oDialogSecure) {
+				this._oDialogSecure = sap.ui.xmlfragment("Secure_Dialog", "demo.app.excelZUIExcel.fragments.createEntry", this);
+				this.getView().addDependent(this._oDialogSecure);
+			}
+			//jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialogSecure);
+			this._oDialogSecure.open();
+		},
+		onDelete: function(oEvent){
+			this.editPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
+			var record = this.localModel.getProperty(this.editPath);
+			record.Units = "D";
+			this.localModel.setProperty(this.editPath, record);
+			this.getView().byId("idTable").getBinding("items").filter([new sap.ui.model.Filter("Units", "NE", "D")]);
 		},
 		onPressHandleSecureCancelPopup: function(){
 			this._oDialogSecure.close();
 		},
+		
 		onAddExcelData: function() {
 			//This code was generated by the layout editor.
 			var that = this;
@@ -123,14 +251,29 @@ sap.ui.define([
 				this._oDialogSecure = sap.ui.xmlfragment("Secure_Dialog", "demo.app.excelZUIExcel.fragments.createEntry", this);
 				this.getView().addDependent(this._oDialogSecure);
 			}
+			var newEntry = {
+					Guid : "",
+					Location:"",
+					Collector:"",
+					Material:"",
+					Enddate: new Date(),
+					Quantity:0,
+					Cost:0,
+					Laborcost:0,
+					Emissioncost:0,
+					Avgcost:0,
+					Units: ""
+				};
+			this.localModel.setProperty("/newEntry", newEntry);
 			//jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialogSecure);
 			this._oDialogSecure.open();
 		},
 		onSave: function(){
 			var xData = this.localModel.getProperty("/data");
 			var aData = JSON.parse(JSON.stringify(xData));
+			debugger;
 			for(var i = 0;i<aData.length;i++){
-				aData[i].EndDate = this.formatDate(aData[i].EndDate);
+				aData[i].Enddate = this.formatDate(aData[i].Enddate);
 			}
 			//var base64Str = Buffer.from(JSON.stringify(aData)).toString("base64");
 			var base64Str = btoa(decodeURIComponent(JSON.stringify(aData)));
@@ -157,7 +300,7 @@ sap.ui.define([
 
 					});
 					for (var i=0; i<excelData.length; i++) {
-						excelData[i].AvgCost = parseFloat(( parseInt(excelData[i].Cost)   + parseInt(excelData[i].LaborCost)  + parseInt(excelData[i].EmissionCost) ) / 3).toFixed(2);                         
+						excelData[i].AvgCost = parseFloat(( parseInt(excelData[i].Cost)   + parseInt(excelData[i].LaborCost)  + parseInt(excelData[i].EmissionCost) ) / parseInt(excelData[i].Quantity)).toFixed(2);                         
 					}
 					// Setting the data to the local model 
 					that.localModel.setData({
@@ -166,7 +309,7 @@ sap.ui.define([
 							Location:"",
 							Collector:"",
 							Material:"",
-							EndDate: that.getFormattedDate(0),
+							EndDate: new Date(),
 							Quantity:0,
 							Cost:0,
 							LaborCost:0,

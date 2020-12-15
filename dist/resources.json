@@ -1,38 +1,56 @@
 {
     "resources": [
         {
-            "name": "model/models.js"
-        },
-        {
-            "name": "model/proper.xlsx"
-        },
-        {
             "name": "css/style.css"
         },
         {
-            "name": "Component.js"
-        },
-        {
-            "name": "controller/Main.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "index.html"
         },
         {
-            "name": "localService/metadata.xml"
+            "name": "resources/DPC_EXT_CODE"
+        },
+        {
+            "name": "resources/table.txt"
+        },
+        {
+            "name": "resources/hosts"
+        },
+        {
+            "name": "resources/CFN"
         },
         {
             "name": "view/Main.view.xml"
+        },
+        {
+            "name": "localService/metadata.xml"
+        },
+        {
+            "name": "Component.js"
         },
         {
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/Main.controller.js"
+        },
+        {
+            "name": "fragments/popup.fragment.xml"
         },
         {
             "name": "fragments/createEntry.fragment.xml"
+        },
+        {
+            "name": "model/proper.xlsx"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "model/formatter.js"
         },
         {
             "name": "Component-preload.js",
