@@ -183,8 +183,8 @@ sap.ui.define([
 		},
 		onEdit: function(oEvent){
 			this.editPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
+			this.localModel.setProperty(this.editPath + "/Enddate", new Date(this.localModel.getProperty(this.editPath).Enddate));
 			this.localModel.setProperty("/newEntry", this.localModel.getProperty(this.editPath));
-			this.localModel.setProperty("/newEntry/Enddate", new Date(this.localModel.getProperty(this.editPath).Enddate));
 			if (!this._oDialogSecure) {
 				this._oDialogSecure = sap.ui.xmlfragment("Secure_Dialog", "demo.app.excelZUIExcel.fragments.createEntry", this);
 				this.getView().addDependent(this._oDialogSecure);
