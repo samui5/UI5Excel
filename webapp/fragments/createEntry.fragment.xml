@@ -21,7 +21,7 @@
 			        <Input value="{local>/newEntry/Laborcost}" type="Number" valueLiveUpdate="true" liveChange="onLiveChange"/>
 			        <Label text="Emission Cost" required="true"/>
 			        <Input value="{local>/newEntry/Emissioncost}" type="Number" valueLiveUpdate="true" liveChange="onLiveChange"/>
-			        <Label text="Emission Cost" required="true"/>
+			        <Label text="Average Cost" required="true"/>
 			        <Text text="{local>/newEntry/Avgcost}"/>
 				</f:content>
 			</f:SimpleForm>
