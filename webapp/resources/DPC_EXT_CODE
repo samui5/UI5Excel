@@ -83,7 +83,13 @@ CLASS ZCL_ZCOLLECTOR_COST_DPC_EXT IMPLEMENTATION.
      DELETE itab WHERE Guid = '' and Units = 'D'.
 
      LOOP AT itab ASSIGNING FIELD-SYMBOL(<fs>) WHERE guid = ''.
-
+       select SINGLE 'X' INTO @data(lv_exist) from mara where matnr = @<fs>-material.
+       IF sy-subrc <> 0.
+         raise EXCEPTION type /iwbep/cx_mgw_busi_exception
+           EXPORTING
+              message_unlimited      = |material code { <fs>-material } in record { sy-tabix } is invalid|
+         .
+       ENDIF.
        <fs>-guid = cl_uuid_factory=>create_system_uuid( )->create_uuid_c32( ).
 
      ENDLOOP.
